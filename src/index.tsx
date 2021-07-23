@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { render } from "react-dom";
 import "./index.scss";
-import { AuthProvider } from "./provider/AuthProvider";
+import { AuthProvider } from "./context/AuthContext";
 import App from "./app";
 import reportWebVitals from "./reportWebVitals";
 
