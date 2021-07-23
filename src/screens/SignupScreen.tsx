@@ -1,36 +1,26 @@
-import { useContext } from "react";
-import { Button } from "semantic-ui-react";
-import { googleSignup } from "../authentication/googleSignup";
-import { signout } from "../authentication/signout";
-import { AuthContext } from "../context/AuthContext";
+import firebase from "firebase";
+import LandingPage from "../components/signup/LandingPage";
+import OnBoardingPage from "../components/signup/OnBoardingPage";
+import HomeScreen from "./HomeScreen";
 
 function SignupScreen() {
-  const { user, setUser } = useContext(AuthContext);
+  let userIsLoggedIn = false;
+  let userHasOnBoarded = false;
+  const user: firebase.User | null = firebase.auth().currentUser;
+  if (user) {
+    userIsLoggedIn = true;
+  }
 
-  return (
-    <div>
-      <h1>Signup page</h1>
-      <Button
-        icon="google"
-        content="Signin with Google"
-        onClick={async () => {
-          const user = await googleSignup();
-          setUser(user);
-          console.log("signed in");
-        }}
-      />
-      <Button
-        content="Sign out"
-        onClick={async () => {
-          await signout();
-          console.log("signed out");
-        }}
-      />
-      <div>
-        <text>{user?.uid}</text>
-      </div>
-    </div>
-  );
+  const renderComponent = () => {
+    if (userIsLoggedIn) {
+      return <HomeScreen />;
+    } else if (userHasOnBoarded) {
+      return <LandingPage />;
+    } else {
+      return <OnBoardingPage />;
+    }
+  };
+  return <div>{renderComponent()}</div>;
 }
 
 export default SignupScreen;
