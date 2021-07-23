@@ -1,5 +1,7 @@
 import logo from "./logo.svg";
 import "./app.css";
+import { createUser, userAlreadyExists } from "./api/methods/users";
+import { User } from "./api/models";
 
 function App() {
   return (
@@ -20,6 +22,24 @@ function App() {
       </header>
     </div>
   );
+}
+
+const user: User = {
+  name: "cynthialeeee",
+};
+
+try {
+  userAlreadyExists(user).then((exists) => {
+    if (exists) {
+      console.log("EXISTS");
+    } else {
+      console.log("NOT EXISTS");
+    }
+  });
+
+  // createUser(user);
+} catch (error) {
+  console.log("ERROR:", error);
 }
 
 export default App;
