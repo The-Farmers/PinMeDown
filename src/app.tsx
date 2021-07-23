@@ -1,11 +1,12 @@
 import { toast, Zoom } from "react-toastify";
 import "semantic-ui-css/semantic.min.css";
 import "react-toastify/dist/ReactToastify.min.css";
-import styles from "./app.module.scss";
 import SignupScreen from "./screens/SignupScreen";
 import { createUser, userAlreadyExists } from "./api/methods/users";
 import { User, Group } from "./api/models";
 import { createGroup, groupAlreadyExists } from "./api/methods/groups";
+import Map from "./components/map";
+import styles from "./app.module.scss";
 
 toast.configure({
   position: "bottom-center",
@@ -19,6 +20,7 @@ function App() {
   return (
     <div className={styles.app}>
       <SignupScreen />
+      <Map />
     </div>
   );
 }
