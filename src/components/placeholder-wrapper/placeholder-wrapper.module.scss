@@ -1,0 +1,23 @@
+.placeholderWrapper {
+  :global(.active.loader:before) {
+    background-color: transparent;
+  }
+
+  &.fillParent {
+    height: 100%;
+    width: 100%;
+  }
+
+  .dimmer {
+    z-index: 10;
+  }
+
+  .message {
+    font-size: 1.5rem;
+    color: black;
+
+    &.inverted {
+      color: white;
+    }
+  }
+}
