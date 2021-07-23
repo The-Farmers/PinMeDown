@@ -5,7 +5,7 @@ import HomeScreen from "./HomeScreen";
 
 function SignupScreen() {
   let userIsLoggedIn = false;
-  let userHasOnBoarded = false;
+  const userHasOnBoarded = false;
   const user: firebase.User | null = firebase.auth().currentUser;
   if (user) {
     userIsLoggedIn = true;
@@ -14,11 +14,11 @@ function SignupScreen() {
   const renderComponent = () => {
     if (userIsLoggedIn) {
       return <HomeScreen />;
-    } else if (userHasOnBoarded) {
-      return <LandingPage />;
-    } else {
-      return <OnBoardingPage />;
     }
+    if (userHasOnBoarded) {
+      return <LandingPage />;
+    }
+    return <OnBoardingPage />;
   };
   return <div>{renderComponent()}</div>;
 }
