@@ -1,0 +1,11 @@
+@use "./base";
+
+.toastBody {
+  text-align: center;
+  @include base.text-viewer;
+}
+
+.app {
+  height: 100vh;
+  width: 100%;
+}
