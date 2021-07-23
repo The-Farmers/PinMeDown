@@ -2,15 +2,14 @@ import firebaseApp from "../../authentication/firebaseConfig";
 import { User } from "../models";
 
 export async function createUser(user: User) {
-  // Check if user already exists
-  if (await userAlreadyExists(user)) {
-    throw Error("User already exists");
+  try {
+    console.log("TRY CREATING USER:", user.name);
+    const dbRef = firebaseApp.database().ref(`users/${user.name}`);
+    console.log(dbRef);
+    dbRef.set({ name: user.name });
+  } catch (e) {
+    console.log("FK U", e);
   }
-
-  firebaseApp
-    .database()
-    .ref(`users/${user.name}`)
-    .set({ name: user.name, groups: [] });
 }
 
 export async function userAlreadyExists(user: User) {
