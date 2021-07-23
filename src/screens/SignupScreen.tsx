@@ -4,7 +4,7 @@ import { googleSignup } from "../authentication/googleSignup";
 import { signout } from "../authentication/signout";
 import { AuthContext } from "../context/AuthContext";
 
-export function SignupScreen() {
+function SignupScreen() {
   const { user, setUser } = useContext(AuthContext);
 
   return (
@@ -32,3 +32,5 @@ export function SignupScreen() {
     </div>
   );
 }
+
+export default SignupScreen;

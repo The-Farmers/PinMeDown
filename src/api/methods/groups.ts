@@ -4,7 +4,7 @@ import { User } from "../models";
 export function createGroup(users: User[], groupName: string) {
   firebaseApp
     .database()
-    .ref("groups/" + groupName)
+    .ref(`groups/${groupName}`)
     .set({
       members: ["jeremy"],
     });

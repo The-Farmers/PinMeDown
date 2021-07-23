@@ -14,10 +14,10 @@ export async function createUser(user: User) {
 }
 
 export async function userAlreadyExists(user: User) {
-  const dbRef = firebaseApp.database().ref();
-  const snapshot = await dbRef.child(`users/${user.name}`).get();
-
   try {
+    const dbRef = firebaseApp.database().ref();
+    const snapshot = await dbRef.child(`users/${user.name}`).get();
+
     if (snapshot.exists()) {
       console.log("ALREADY EXIST", snapshot.val());
       return true;
