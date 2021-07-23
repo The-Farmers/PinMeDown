@@ -1,11 +1,7 @@
 import { StrictMode } from "react";
 import { render } from "react-dom";
-<<<<<<< Updated upstream
 import "./index.scss";
-=======
 import { AuthProvider } from "./provider/AuthProvider";
-import "./index.css";
->>>>>>> Stashed changes
 import App from "./app";
 import reportWebVitals from "./reportWebVitals";
 
