@@ -1,11 +1,12 @@
 import firebaseApp from "../../authentication/firebaseConfig";
 import { Group, User } from "../models";
 
-export function createGroup(group: Group) {
+export function createGroup(creator: User, groupName: string) {
   try {
-    firebaseApp.database().ref(`groups/${group.group_name}`).set({
-      groupName: group.group_name,
+    firebaseApp.database().ref(`groups/${groupName}`).set({
+      group_name: groupName,
     });
+    addMemberToGroup(creator, groupName);
   } catch (e) {
     console.log("ERROR CREATING GROUP", e);
   }
@@ -27,4 +28,22 @@ export async function groupAlreadyExists(group: Group) {
   }
 }
 
-export function addMemberToGroup(user: User, groupName: string) {}
+export function addMemberToGroup(user: User, groupName: string) {
+  try {
+    firebaseApp
+      .database()
+      .ref(`groups/${groupName}/members/${user.user_id}`)
+      .set({
+        name: user.name,
+      });
+    // Add group to members' groups
+    firebaseApp
+      .database()
+      .ref(`users/${user.user_id}/groups/${groupName}`)
+      .set({
+        group_name: groupName,
+      });
+  } catch (e) {
+    console.log("ERROR CREATING GROUP", e);
+  }
+}

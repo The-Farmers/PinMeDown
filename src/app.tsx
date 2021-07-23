@@ -46,7 +46,7 @@ try {
     if (exists) {
       console.log("EXISTS");
     } else {
-      createGroup(group);
+      createGroup(user, "new group yay");
     }
   });
 } catch (error) {
