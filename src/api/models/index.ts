@@ -2,13 +2,13 @@ import {
   NAME,
   MEMBERS,
   GROUP_NAME,
-  CREATOR,
   DESCRIPTION,
-  X_COORD,
-  Y_COORD,
-  COORDINATES,
   GROUP,
+  TITLE,
   USER_ID,
+  LATITUDE,
+  LONGITUDE,
+  CREATOR,
 } from "../constants";
 
 export type User = {
@@ -21,14 +21,11 @@ export type Group = {
   [GROUP_NAME]: string;
 };
 
-export type Coordinates = {
-  [X_COORD]: number;
-  [Y_COORD]: number;
-};
-
 export type Pin = {
-  [CREATOR]: User;
+  [TITLE]: string;
   [DESCRIPTION]: string;
-  [COORDINATES]: Coordinates;
-  [GROUP]: Group;
+  [LATITUDE]: number;
+  [LONGITUDE]: number;
+  [GROUP_NAME]: string;
+  [CREATOR]: User;
 };

@@ -1,5 +1,5 @@
 import firebaseApp from "../../authentication/firebaseConfig";
-import { User } from "../models";
+import { Group, User } from "../models";
 
 export async function createUser(user: User) {
   try {
@@ -27,4 +27,19 @@ export async function userAlreadyExists(user: User) {
   } catch (e) {
     console.log("Error getting snapshot", e);
   }
+}
+
+export async function getUserGroups(userId: string) {
+  try {
+    const dbRef = firebaseApp.database().ref();
+    const snapshot = await dbRef.child(`users/${userId}/groups/`).get();
+    if (snapshot.exists()) {
+      console.log(snapshot.val());
+    } else {
+      console.log("No data available");
+    }
+  } catch (e) {
+    console.log("Get user groups", e);
+  }
+  return [];
 }

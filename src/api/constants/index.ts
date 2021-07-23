@@ -8,3 +8,6 @@ export const X_COORD = "x";
 export const Y_COORD = "y";
 export const GROUP = "group";
 export const USER_ID = "user_id";
+export const LATITUDE = "latitude";
+export const LONGITUDE = "longitude";
+export const TITLE = "title";

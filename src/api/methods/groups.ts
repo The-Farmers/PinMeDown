@@ -1,3 +1,4 @@
+import { FormTextArea } from "semantic-ui-react";
 import firebaseApp from "../../authentication/firebaseConfig";
 import { Group, User } from "../models";
 
@@ -46,4 +47,38 @@ export function addMemberToGroup(user: User, groupName: string) {
   } catch (e) {
     console.log("ERROR CREATING GROUP", e);
   }
+}
+
+export async function removeMemberFromGroup(userId: string, groupName: string) {
+  try {
+    firebaseApp.database().ref(`users/${userId}/groups/${groupName}`).remove();
+
+    const groupRef = firebaseApp.database().ref(`groups/${groupName}/`);
+
+    groupRef.child(`members/${userId}`).remove();
+
+    // Remove group if no more members
+    const snapshot = await groupRef.child(`members/`).get();
+    if (!snapshot.exists()) {
+      console.log("NO MORE MEMBERS: REMOVE PLS");
+      groupRef.remove();
+    }
+  } catch (e) {
+    console.log("ERROR REMOVING MEMBER FROM GROUP", e);
+  }
+}
+
+export async function getUsersInGroup(groupName: string) {
+  try {
+    const dbRef = firebaseApp.database().ref();
+    const snapshot = await dbRef.child(`groups/${groupName}/members/`).get();
+    if (snapshot.exists()) {
+      console.log(snapshot.val());
+    } else {
+      console.log("No data available");
+    }
+  } catch (e) {
+    console.log("ERROR GET USERS IN GROUP:", e);
+  }
+  return [];
 }
