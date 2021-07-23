@@ -4,7 +4,8 @@ import "react-toastify/dist/ReactToastify.min.css";
 import styles from "./app.module.scss";
 import SignupScreen from "./screens/SignupScreen";
 import { createUser, userAlreadyExists } from "./api/methods/users";
-import { User } from "./api/models";
+import { User, Group } from "./api/models";
+import { createGroup, groupAlreadyExists } from "./api/methods/groups";
 
 toast.configure({
   position: "bottom-center",
@@ -24,6 +25,12 @@ function App() {
 
 const user: User = {
   name: "cynthialeeee",
+  user_id: "abc1234",
+};
+
+const group: Group = {
+  group_name: "new group yay",
+  members: [user, user],
 };
 
 try {
@@ -35,7 +42,13 @@ try {
     }
   });
 
-  // createUser(user);
+  groupAlreadyExists(group).then((exists) => {
+    if (exists) {
+      console.log("EXISTS");
+    } else {
+      createGroup(group);
+    }
+  });
 } catch (error) {
   console.log("ERROR:", error);
 }

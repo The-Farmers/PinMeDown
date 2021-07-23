@@ -8,9 +8,11 @@ import {
   Y_COORD,
   COORDINATES,
   GROUP,
+  USER_ID,
 } from "../constants";
 
 export type User = {
+  [USER_ID]: string;
   [NAME]: string;
 };
 
