@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import SidePanel from "../side-panel/side-panel";
 import Map from "../map";
 import styles from "./app-layout-container.module.scss";
+import GroupProvider from "../../context-provider/group-provider";
 
 function AppLayoutContainer() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -9,31 +10,33 @@ function AppLayoutContainer() {
   const [isResizing, setResizing] = useState(false);
 
   return (
-    <div
-      onMouseUpCapture={() => setResizing(false)}
-      onMouseLeave={() => setResizing(false)}
-      onMouseMove={({ clientX }) =>
-        isResizing &&
-        setSidePanelWidth(
-          Math.max(300, Math.min(window.innerWidth - 300, clientX)),
-        )
-      }
-      ref={containerRef}
-      className={styles.layoutContainer}
-    >
-      <div style={{ width: sidePanelWidth }}>
-        <SidePanel />
-      </div>
-
+    <GroupProvider>
       <div
-        onMouseDown={() => setResizing(true)}
-        className={styles.resizeContainer}
-      />
+        onMouseUpCapture={() => setResizing(false)}
+        onMouseLeave={() => setResizing(false)}
+        onMouseMove={({ clientX }) =>
+          isResizing &&
+          setSidePanelWidth(
+            Math.max(300, Math.min(window.innerWidth - 300, clientX)),
+          )
+        }
+        ref={containerRef}
+        className={styles.layoutContainer}
+      >
+        <div style={{ width: sidePanelWidth }}>
+          <SidePanel />
+        </div>
 
-      <div className={styles.mapContainer}>
-        <Map />
+        <div
+          onMouseDown={() => setResizing(true)}
+          className={styles.resizeContainer}
+        />
+
+        <div className={styles.mapContainer}>
+          <Map />
+        </div>
       </div>
-    </div>
+    </GroupProvider>
   );
 }
 
