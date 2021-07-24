@@ -6,17 +6,17 @@ export async function createUser(user: User) {
     firebaseApp
       .database()
       .ref()
-      .child(`users/${user.user_id}`)
+      .child(`users/${user.userId}`)
       .set({ name: user.name });
   } catch (e) {
     console.log("Error creating user", e);
   }
 }
 
-export async function userAlreadyExists(user: User) {
+export async function userAlreadyExists(user_id: string | undefined) {
   try {
     const dbRef = firebaseApp.database().ref();
-    const snapshot = await dbRef.child(`users/${user.user_id}`).get();
+    const snapshot = await dbRef.child(`users/${user_id}`).get();
 
     if (snapshot.exists()) {
       console.log("USER ALREADY EXISTS", snapshot.val());
@@ -34,12 +34,26 @@ export async function getUserGroups(userId: string) {
     const dbRef = firebaseApp.database().ref();
     const snapshot = await dbRef.child(`users/${userId}/groups/`).get();
     if (snapshot.exists()) {
-      console.log(snapshot.val());
-    } else {
-      console.log("No data available");
+      return snapshot.val();
     }
+    return {};
   } catch (e) {
-    console.log("Get user groups", e);
+    console.log("ERRIR GET USER GROUP", e);
   }
   return [];
+}
+
+export async function getName(userId: string | undefined) {
+  try {
+    const dbRef = firebaseApp.database().ref();
+    const snapshot = await dbRef.child(`users/${userId}`).get();
+
+    if (snapshot.exists()) {
+      console.log("USER ALREADY EXISTS", snapshot.val());
+      return snapshot.val().name;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 }

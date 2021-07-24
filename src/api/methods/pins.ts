@@ -11,8 +11,8 @@ export function createPin(pin: Pin) {
       .ref(`groups/${pin.group_name}/pins/${pin.title}`)
       .set({
         pin_description: pin.description,
-        latitude: pin.latitude,
-        longitude: pin.longitude,
+        latitude: pin.lat,
+        longitude: pin.long,
         creator: pin.creator,
       });
   } catch (e) {
@@ -44,9 +44,9 @@ export async function getGroupPins(groupName: string) {
     const snapshot = await dbRef.child(`groups/${groupName}/pins/`).get();
     if (snapshot.exists()) {
       console.log(snapshot.val());
-    } else {
-      console.log("No data available");
+      return snapshot.val();
     }
+    return {};
   } catch (e) {
     console.log("Get user groups", e);
   }

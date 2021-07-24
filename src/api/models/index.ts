@@ -3,11 +3,10 @@ import {
   MEMBERS,
   GROUP_NAME,
   DESCRIPTION,
-  GROUP,
   TITLE,
   USER_ID,
-  LATITUDE,
-  LONGITUDE,
+  LAT,
+  LONG,
   CREATOR,
 } from "../constants";
 
@@ -24,8 +23,8 @@ export type Group = {
 export type Pin = {
   [TITLE]: string;
   [DESCRIPTION]: string;
-  [LATITUDE]: number;
-  [LONGITUDE]: number;
+  [LAT]: number;
+  [LONG]: number;
   [GROUP_NAME]: string;
   [CREATOR]: User;
 };

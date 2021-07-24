@@ -1,4 +1,3 @@
-import { FormTextArea } from "semantic-ui-react";
 import firebaseApp from "../../authentication/firebaseConfig";
 import { Group, User } from "../models";
 
@@ -33,17 +32,14 @@ export function addMemberToGroup(user: User, groupName: string) {
   try {
     firebaseApp
       .database()
-      .ref(`groups/${groupName}/members/${user.user_id}`)
+      .ref(`groups/${groupName}/members/${user.userId}`)
       .set({
         name: user.name,
       });
     // Add group to members' groups
-    firebaseApp
-      .database()
-      .ref(`users/${user.user_id}/groups/${groupName}`)
-      .set({
-        group_name: groupName,
-      });
+    firebaseApp.database().ref(`users/${user.userId}/groups/${groupName}`).set({
+      group_name: groupName,
+    });
   } catch (e) {
     console.log("ERROR CREATING GROUP", e);
   }
@@ -73,12 +69,10 @@ export async function getUsersInGroup(groupName: string) {
     const dbRef = firebaseApp.database().ref();
     const snapshot = await dbRef.child(`groups/${groupName}/members/`).get();
     if (snapshot.exists()) {
-      console.log(snapshot.val());
-    } else {
-      console.log("No data available");
+      return snapshot.val();
     }
+    return {};
   } catch (e) {
-    console.log("ERROR GET USERS IN GROUP:", e);
+    console.log("ERROR GET USERS IN GROUP", e);
   }
-  return [];
 }
