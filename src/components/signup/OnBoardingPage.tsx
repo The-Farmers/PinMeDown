@@ -36,6 +36,7 @@ function OnBoardingPage() {
 
   return (
     <div>
+      <h1>Just one quick field to enter:</h1>
       {hasEmptyField ? <h3>Field cannot be blank</h3> : null}
       <Form onSubmit={onSubmit}>
         <Form.Input label="Name" input={{ ref: nameRef }} />

@@ -18,11 +18,11 @@ export async function userAlreadyExists(user_id: string | undefined) {
     const dbRef = firebaseApp.database().ref();
     const snapshot = await dbRef.child(`users/${user_id}`).get();
 
-    if (snapshot.exists()) {
+    if (snapshot) {
       console.log("USER ALREADY EXISTS", snapshot.val());
       return true;
     }
-    console.log("USER DOES NOT EXIST", snapshot.val());
+    console.log("USER DOES NOT EXIST");
     return false;
   } catch (e) {
     console.log("Error getting snapshot", e);
@@ -50,10 +50,9 @@ export async function getName(userId: string | undefined) {
 
     if (snapshot.exists()) {
       console.log("USER ALREADY EXISTS", snapshot.val());
-      return snapshot.val().name;
+      return snapshot.val()?.name;
     }
   } catch (error) {
     console.error(error);
-    return null;
   }
 }
