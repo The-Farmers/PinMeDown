@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import firebaseApp from "../../authentication/firebaseConfig";
 import { Group, User } from "../models";
 
@@ -56,4 +57,24 @@ export async function getName(userId: string | undefined) {
     console.error(error);
     return null;
   }
+}
+
+export function useGetUserGroups(userId: string) {
+  const [groups, setGroups] = useState();
+
+  useEffect(() => {
+    try {
+      firebaseApp
+        .database()
+        .ref(`users/${userId}/groups`)
+        .on("value", (snapshot) => {
+          console.log(snapshot.val());
+          setGroups(snapshot.val());
+        });
+    } catch (e) {
+      console.log("Error get grp pins:", e);
+    }
+  }, [userId]);
+
+  return { groups };
 }
