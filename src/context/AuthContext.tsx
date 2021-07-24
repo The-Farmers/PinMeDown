@@ -10,8 +10,8 @@ import firebase from "firebase/app";
 import { auth } from "../authentication/firebaseConfig";
 
 type AuthContextType = {
-  user: firebase.User | null;
-  setUser: Dispatch<SetStateAction<firebase.User | null>>;
+  user: { user: firebase.User; name: string } | null;
+  setUser: Dispatch<SetStateAction<AuthContextType["user"] | null>>;
 };
 
 export const AuthContext = createContext<AuthContextType>({
@@ -26,11 +26,20 @@ type Props = {
 };
 
 export function AuthProvider({ children }: Props) {
-  const [user, setUser] = useState<firebase.User | null>(null);
+  const [user, setUser] = useState<AuthContextType["user"]>(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
-      setUser(firebaseUser);
+      setUser((previousUser) => {
+        if (firebaseUser === null) {
+          return null;
+        }
+
+        return {
+          user: firebaseUser,
+          name: previousUser === null ? "" : previousUser.name,
+        };
+      });
     });
 
     return unsubscribe;

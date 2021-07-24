@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import { Button } from "semantic-ui-react";
 import { googleSignup } from "../../authentication/googleSignup";
-import { signout } from "../../authentication/signout";
 import { AuthContext } from "../../context/AuthContext";
+import { getName, userAlreadyExists } from "../../api/methods/users";
 
 function LandingPage() {
-  const { user, setUser } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
 
   return (
     <div>
@@ -15,20 +15,17 @@ function LandingPage() {
         content="Signin with Google"
         onClick={async () => {
           const user = await googleSignup();
-          setUser(user);
-          console.log("signed in");
+          const userExists = await userAlreadyExists(user?.uid);
+
+          if (user === null) {
+            return;
+          }
+
+          const name = await getName(user.uid);
+
+          setUser({ user, name: userExists ? name : "" });
         }}
       />
-      <Button
-        content="Sign out"
-        onClick={async () => {
-          await signout();
-          console.log("signed out");
-        }}
-      />
-      <div>
-        <div>{user?.uid}</div>
-      </div>
     </div>
   );
 }

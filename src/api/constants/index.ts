@@ -8,3 +8,4 @@ export const X_COORD = "x";
 export const Y_COORD = "y";
 export const GROUP = "group";
 export const USER_ID = "user_id";
+export const USERNAME = "username";

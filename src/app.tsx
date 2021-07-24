@@ -1,11 +1,12 @@
+import { useContext } from "react";
 import { toast, Zoom } from "react-toastify";
 import "semantic-ui-css/semantic.min.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import styles from "./app.module.scss";
-import SignupScreen from "./screens/SignupScreen";
-import { createUser, userAlreadyExists } from "./api/methods/users";
-import { User, Group } from "./api/models";
-import { createGroup, groupAlreadyExists } from "./api/methods/groups";
+import { AuthContext } from "./context/AuthContext";
+import LandingPage from "./components/signup/LandingPage";
+import HomeScreen from "./screens/HomeScreen";
+import OnBoardingPage from "./components/signup/OnBoardingPage";
 
 toast.configure({
   position: "bottom-center",
@@ -16,41 +17,51 @@ toast.configure({
 });
 
 function App() {
-  return (
-    <div className={styles.app}>
-      <SignupScreen />
-    </div>
-  );
+  const { user } = useContext(AuthContext);
+
+  const renderScreen = () => {
+    if (user === null) {
+      return <LandingPage />;
+    }
+
+    if (!user.name) {
+      return <OnBoardingPage />;
+    }
+
+    return <HomeScreen />;
+  };
+  return <div className={styles.app}>{renderScreen()}</div>;
 }
 
-const user: User = {
-  name: "cynthialeeee",
-  user_id: "abc1234",
-};
+// const user: User = {
+//   name: "cynthialeeee",
+//   user_id: "abc1234",
+//   username: "test",
+// };
 
-const group: Group = {
-  group_name: "new group yay",
-  members: [user, user],
-};
+// const group: Group = {
+//   group_name: "new group yay",
+//   members: [user, user],
+// };
 
-try {
-  userAlreadyExists(user).then((exists) => {
-    if (exists) {
-      console.log("EXISTS");
-    } else {
-      createUser(user);
-    }
-  });
+// try {
+//   userAlreadyExists("user_id_here").then((exists) => {
+//     if (exists) {
+//       console.log("EXISTS");
+//     } else {
+//       createUser(user);
+//     }
+//   });
 
-  groupAlreadyExists(group).then((exists) => {
-    if (exists) {
-      console.log("EXISTS");
-    } else {
-      createGroup(group);
-    }
-  });
-} catch (error) {
-  console.log("ERROR:", error);
-}
+//   groupAlreadyExists(group).then((exists) => {
+//     if (exists) {
+//       console.log("EXISTS");
+//     } else {
+//       createGroup(group);
+//     }
+//   });
+// } catch (error) {
+//   console.log("ERROR:", error);
+// }
 
 export default App;

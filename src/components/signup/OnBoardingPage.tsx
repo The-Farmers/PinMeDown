@@ -1,22 +1,37 @@
-import { Button, Checkbox, Form } from "semantic-ui-react";
+import { useRef, useContext } from "react";
+import { Button, Form } from "semantic-ui-react";
+import { createUser } from "../../api/methods/users";
+import { User } from "../../api/models";
+import { AuthContext } from "../../context/AuthContext";
 
-function LandingPage() {
+function OnBoardingPage() {
+  const nameRef = useRef<HTMLInputElement>();
+
+  const { user } = useContext(AuthContext);
+
+  let hasEmptyField = true;
+  const onSubmit = () => {
+    const name = nameRef.current?.value?.trim();
+    const user_id = user?.user?.uid;
+
+    if (!name || !user_id) {
+      hasEmptyField = true;
+      return;
+    }
+    hasEmptyField = false;
+    const userValues: User = {
+      user_id,
+      name,
+    };
+    createUser(userValues);
+  };
+
   return (
-    <Form>
-      <Form.Field>
-        <label>First Name</label>
-        <input placeholder="First Name" />
-      </Form.Field>
-      <Form.Field>
-        <label>Last Name</label>
-        <input placeholder="Last Name" />
-      </Form.Field>
-      <Form.Field>
-        <Checkbox label="I agree to the Terms and Conditions" />
-      </Form.Field>
+    <Form onSubmit={onSubmit}>
+      <Form.Input label="Name" input={{ ref: nameRef }} />
       <Button type="submit">Submit</Button>
     </Form>
   );
 }
 
-export default LandingPage;
+export default OnBoardingPage;

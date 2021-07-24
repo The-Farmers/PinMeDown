@@ -13,10 +13,10 @@ export async function createUser(user: User) {
   }
 }
 
-export async function userAlreadyExists(user: User) {
+export async function userAlreadyExists(user_id: string | undefined) {
   try {
     const dbRef = firebaseApp.database().ref();
-    const snapshot = await dbRef.child(`users/${user.user_id}`).get();
+    const snapshot = await dbRef.child(`users/${user_id}`).get();
 
     if (snapshot.exists()) {
       console.log("USER ALREADY EXISTS", snapshot.val());
@@ -26,5 +26,20 @@ export async function userAlreadyExists(user: User) {
     return false;
   } catch (e) {
     console.log("Error getting snapshot", e);
+  }
+}
+
+export async function getName(user_id: string | undefined) {
+  try {
+    const dbRef = firebaseApp.database().ref();
+    const snapshot = await dbRef.child(`users/${user_id}`).get();
+
+    if (snapshot.exists()) {
+      console.log("USER ALREADY EXISTS", snapshot.val());
+      return snapshot.val().name;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
   }
 }
