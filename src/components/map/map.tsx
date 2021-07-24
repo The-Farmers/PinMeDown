@@ -116,15 +116,16 @@ function Map() {
         </Modal.Actions>
       </Modal>
 
-      <PlaceholderWrapper
-        placeholder
-        loading={!loadError && (geolocation === undefined || !isLoaded)}
-        loadingMessage="Loading map"
-        showDefaultMessage={Boolean(loadError)}
-        defaultMessage={
-          loadError?.message ?? "An error has occurred while loading the map"
-        }
-      >
+    <PlaceholderWrapper
+      className={styles.placeholder}
+      placeholder
+      loading={!loadError && (geolocation === undefined || !isLoaded)}
+      loadingMessage="Loading map"
+      showDefaultMessage={Boolean(loadError)}
+      defaultMessage={
+        loadError?.message ?? "An error has occurred while loading the map"
+      }
+    >
         <GoogleMap
           mapContainerClassName={styles.map}
           onLoad={setMap}

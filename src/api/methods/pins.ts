@@ -1,3 +1,4 @@
+import { useState, useCallback, useEffect } from "react";
 import firebaseApp from "../../authentication/firebaseConfig";
 import { User, Pin } from "../models";
 
@@ -51,4 +52,24 @@ export async function getGroupPins(groupName: string) {
     console.log("Get user groups", e);
   }
   return [];
+}
+
+export function useGetGroupPins(groupName: string) {
+  const [groupPins, setGroupPins] = useState();
+
+  useEffect(() => {
+    try {
+      firebaseApp
+        .database()
+        .ref(`groups/${groupName}/pins`)
+        .on("value", (snapshot) => {
+          const result = snapshot.val() ?? {};
+          setGroupPins(result);
+        });
+    } catch (e) {
+      console.log("Error get grp pins:", e);
+    }
+  }, [groupName]);
+
+  return { groupPins };
 }
