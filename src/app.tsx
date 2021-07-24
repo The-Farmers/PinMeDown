@@ -21,13 +21,13 @@ function App() {
   const { user } = useContext(AuthContext);
 
   const renderScreen = () => {
-    if (user === null) {
-      return <LandingPage />;
-    }
+    // if (user === null) {
+    //   return <LandingPage />;
+    // }
 
-    if (user.name === null || user.name === "") {
-      return <OnBoardingPage />;
-    }
+    // if (user.name === null || user.name === "") {
+    //   return <OnBoardingPage />;
+    // }
 
     return <SidePanel />;
   };

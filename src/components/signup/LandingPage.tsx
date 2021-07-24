@@ -16,15 +16,17 @@ function LandingPage() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        flexDirection: "column",
       }}
     >
+      <h3>Sign in to view your groups and pins</h3>
       <Button
         className={clsx(styles.googleButton, styles.important)}
         icon={{
           name: "google",
           className: styles.icon,
         }}
-        content="Signin with Google"
+        content="Sign in with Google"
         onClick={async () => {
           const currUser = await googleSignup();
 

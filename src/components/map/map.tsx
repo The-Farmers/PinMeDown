@@ -40,6 +40,7 @@ function Map() {
 
   return (
     <PlaceholderWrapper
+      className={styles.placeholder}
       placeholder
       loading={!loadError && (geolocation === undefined || !isLoaded)}
       loadingMessage="Loading map"
