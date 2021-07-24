@@ -1,7 +1,17 @@
 import { useContext } from "react";
-import { Button, Card, Grid, Header, Icon } from "semantic-ui-react";
+import {
+  Button,
+  Card,
+  Grid,
+  Header,
+  Icon,
+  Placeholder,
+} from "semantic-ui-react";
+import { useGetUserGroups } from "../../api/methods/users";
 import { GroupContext } from "../../context-provider/group-provider";
+import { AuthContext } from "../../context/AuthContext";
 import { Group } from "../../types";
+import PlaceholderWrapper from "../placeholder-wrapper";
 import styles from "./my-groups-tab.module.scss";
 
 const data: Group[] = [
@@ -57,49 +67,58 @@ const data: Group[] = [
 
 function MyGroupsTab() {
   const { setSelectedGroup, selectedGroup } = useContext(GroupContext);
+  const { user } = useContext(AuthContext);
+  const { groups } = useGetUserGroups(user?.user.uid ?? "");
   const { groupName, pins } = selectedGroup ?? {};
 
-  return selectedGroup ? (
-    <>
-      <Button
-        icon="chevron left"
-        basic
-        compact
-        color="grey"
-        content="Back"
-        onClick={() => setSelectedGroup(undefined)}
-      />
-      <Header as="h2" className={styles.header} textAlign="center">
-        {groupName}
-      </Header>
-    </>
-  ) : (
-    <Grid centered stretched stackable columns="2">
-      {data
-        .concat(data)
-        .concat(data)
-        .map((group) => {
-          const { groupName, members, pins } = group;
-          return (
-            <Grid.Column key={groupName}>
-              <Card fluid onClick={() => setSelectedGroup(group)} raised>
-                <Card.Content>
-                  <Card.Header>{groupName}</Card.Header>
+  console.log(groups);
 
-                  <Card.Description>
-                    <Icon name="users" />
-                    {Object.keys(members).length} friends
-                  </Card.Description>
-                </Card.Content>
+  return (
+    <PlaceholderWrapper loadingMessage="Retrieving groups" placeholder>
+      {selectedGroup ? (
+        <>
+          <Button
+            icon="chevron left"
+            basic
+            compact
+            color="grey"
+            content="Back"
+            onClick={() => setSelectedGroup(undefined)}
+          />
+          <Header as="h2" className={styles.header} textAlign="center">
+            {groupName}
+          </Header>
+        </>
+      ) : (
+        <Grid centered stretched stackable columns="2">
+          {data
+            .concat(data)
+            .concat(data)
+            .concat(data)
+            .map((group) => {
+              const { groupName, members, pins } = group;
+              return (
+                <Grid.Column key={groupName}>
+                  <Card fluid onClick={() => setSelectedGroup(group)} raised>
+                    <Card.Content>
+                      <Card.Header>{groupName}</Card.Header>
 
-                <Card.Content meta>
-                  <Icon name="point" /> {Object.keys(pins).length} pins
-                </Card.Content>
-              </Card>
-            </Grid.Column>
-          );
-        })}
-    </Grid>
+                      <Card.Description>
+                        <Icon name="users" />
+                        {Object.keys(members).length} friends
+                      </Card.Description>
+                    </Card.Content>
+
+                    <Card.Content meta>
+                      <Icon name="point" /> {Object.keys(pins).length} pins
+                    </Card.Content>
+                  </Card>
+                </Grid.Column>
+              );
+            })}
+        </Grid>
+      )}
+    </PlaceholderWrapper>
   );
 }
 

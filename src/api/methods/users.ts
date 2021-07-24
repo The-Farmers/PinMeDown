@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import firebaseApp from "../../authentication/firebaseConfig";
-import { Group, User } from "../models";
+import { Group } from "../../types";
+import { User } from "../models";
 
 export async function createUser(user: User) {
   try {
@@ -59,7 +60,7 @@ export async function getName(userId: string | undefined) {
 }
 
 export function useGetUserGroups(userId: string) {
-  const [groups, setGroups] = useState();
+  const [groups, setGroups] = useState<Record<string, Group>>();
 
   useEffect(() => {
     try {

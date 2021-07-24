@@ -1,23 +1,18 @@
 .sidePanel {
   height: 100%;
 
-  .signOutButton {
-    margin-bottom: 0.5rem;
-  }
-
-  .menu {
-    margin-bottom: 0;
-  }
-
-  > div {
-    height: 100%;
+  .topBar {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
   }
 
   .tabPanel {
+    padding: 1rem;
     border: none;
     box-shadow: none;
-    overflow-y: auto;
+    overflow-y: auto !important;
+    height: 94%;
   }
 }

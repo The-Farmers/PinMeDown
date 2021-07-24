@@ -1,7 +1,7 @@
 import styles from "./search-tab.module.scss";
 
-function SearchTab() {
+function SearchGroupTab() {
   return <div />;
 }
 
-export default SearchTab;
+export default SearchGroupTab;

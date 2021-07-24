@@ -4,15 +4,12 @@ import "./index.scss";
 import { AuthProvider } from "./context/AuthContext";
 import App from "./app";
 import reportWebVitals from "./reportWebVitals";
-import { StateProvider } from "./context/StateContext";
 
 render(
   <StrictMode>
-    <StateProvider>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </StateProvider>
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </StrictMode>,
   document.getElementById("root"),
 );
