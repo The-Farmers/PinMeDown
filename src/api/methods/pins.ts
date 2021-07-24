@@ -10,9 +10,9 @@ export function createPin(pin: Pin) {
       .database()
       .ref(`groups/${pin.group_name}/pins/${pin.title}`)
       .set({
-        pin_description: pin.description,
-        latitude: pin.lat,
-        longitude: pin.long,
+        description: pin.description,
+        lat: pin.lat,
+        long: pin.long,
         creator: pin.creator,
       });
   } catch (e) {
