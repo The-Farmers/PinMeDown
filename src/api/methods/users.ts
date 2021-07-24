@@ -68,8 +68,8 @@ export function useGetUserGroups(userId: string) {
         .database()
         .ref(`users/${userId}/groups`)
         .on("value", (snapshot) => {
-          console.log(snapshot.val());
-          setGroups(snapshot.val());
+          const result = snapshot.val() ?? {};
+          setGroups(result);
         });
     } catch (e) {
       console.log("Error get grp pins:", e);
