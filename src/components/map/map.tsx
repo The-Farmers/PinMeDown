@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, memo } from "react";
 import {
   GoogleMap,
   useJsApiLoader,
@@ -76,4 +76,4 @@ function Map() {
   );
 }
 
-export default Map;
+export default memo(Map);
