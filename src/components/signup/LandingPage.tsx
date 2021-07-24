@@ -14,16 +14,17 @@ function LandingPage() {
         icon="google"
         content="Signin with Google"
         onClick={async () => {
-          const user = await googleSignup();
-          const userExists = await userAlreadyExists(user?.uid);
+          const currUser = await googleSignup();
 
-          if (user === null) {
+          if (currUser === null) {
+            throw new Error("USEr null?");
             return;
           }
 
-          const name = await getName(user.uid);
+          const name = await getName(currUser.uid);
 
-          setUser({ user, name: userExists ? name : "" });
+          console.log(name);
+          setUser({ user: currUser, name: name ? (name as string) : "" });
         }}
       />
     </div>

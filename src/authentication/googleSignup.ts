@@ -5,8 +5,7 @@ export const googleSignup = async () => {
   try {
     console.log("Hi");
     const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithRedirect(provider);
-    const { user } = await auth.getRedirectResult();
+    const { user } = await auth.signInWithPopup(provider);
     // const token = (credential as any)?.accessToken;
     return user;
   } catch (error) {

@@ -24,7 +24,7 @@ function App() {
       return <LandingPage />;
     }
 
-    if (!user.name) {
+    if (user.name === null || user.name === "") {
       return <OnBoardingPage />;
     }
 
