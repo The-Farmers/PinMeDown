@@ -3,6 +3,7 @@ import "semantic-ui-css/semantic.min.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import Map from "./components/map";
 import styles from "./app.module.scss";
+import SidePanel from "./components/side-panel";
 
 toast.configure({
   position: "bottom-center",
@@ -15,7 +16,7 @@ toast.configure({
 function App() {
   return (
     <div className={styles.app}>
-      <Map />
+      <SidePanel />
     </div>
   );
 }

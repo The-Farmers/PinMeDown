@@ -1,0 +1,21 @@
+.top_section {
+  margin-bottom: 10px;
+}
+
+.title_section {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.join_button {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.content_section {
+  max-height: 20vh;
+  word-wrap: break-word;
+  overflow: auto;
+}

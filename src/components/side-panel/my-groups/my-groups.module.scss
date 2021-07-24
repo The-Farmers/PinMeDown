@@ -1,0 +1,17 @@
+.content_section {
+  max-height: 20vh;
+  word-wrap: break-word;
+  overflow: auto;
+}
+
+.title_section {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.leave_button {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
