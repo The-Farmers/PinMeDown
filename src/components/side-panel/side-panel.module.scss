@@ -1,20 +1,15 @@
-.sidePanel {
-  padding: 1rem;
+.menu {
+  margin-bottom: 0;
+}
+
+> div {
   height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
-  .menu {
-    margin-bottom: 0;
-  }
-
-  > div {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .tabPanel {
-    border: none;
-    box-shadow: none;
-    overflow-y: auto;
-  }
+.tabPanel {
+  border: none;
+  box-shadow: none;
+  overflow-y: auto;
 }

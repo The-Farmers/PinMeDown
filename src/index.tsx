@@ -1,12 +1,18 @@
 import { StrictMode } from "react";
 import { render } from "react-dom";
 import "./index.scss";
+import { AuthProvider } from "./context/AuthContext";
 import App from "./app";
 import reportWebVitals from "./reportWebVitals";
+import { StateProvider } from "./context/StateContext";
 
 render(
   <StrictMode>
-    <App />
+    <StateProvider>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </StateProvider>
   </StrictMode>,
   document.getElementById("root"),
 );

@@ -24,9 +24,7 @@ const panes = [
 
 function SidePanel() {
   return (
-    <div className={styles.sidePanel}>
-      <Tab menu={{ secondary: true, className: styles.menu }} panes={panes} />
-    </div>
+    <Tab menu={{ secondary: true, className: styles.menu }} panes={panes} />
   );
 }
 

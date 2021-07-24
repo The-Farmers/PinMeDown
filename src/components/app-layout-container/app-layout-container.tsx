@@ -1,10 +1,13 @@
-import { useRef, useState } from "react";
-import SidePanel from "../side-panel/side-panel";
+import { ReactNode, useRef, useState } from "react";
 import Map from "../map";
 import styles from "./app-layout-container.module.scss";
 import GroupProvider from "../../context-provider/group-provider";
 
-function AppLayoutContainer() {
+type Props = {
+  children: ReactNode;
+};
+
+function AppLayoutContainer({ children }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [sidePanelWidth, setSidePanelWidth] = useState(window.innerWidth / 2);
   const [isResizing, setResizing] = useState(false);
@@ -23,8 +26,11 @@ function AppLayoutContainer() {
         ref={containerRef}
         className={styles.layoutContainer}
       >
-        <div style={{ width: sidePanelWidth }}>
-          <SidePanel />
+        <div
+          className={styles.sidePanelContainer}
+          style={{ width: sidePanelWidth }}
+        >
+          {children}
         </div>
 
         <div
