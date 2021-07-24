@@ -63,8 +63,8 @@ export function useGetGroupPins(groupName: string) {
         .database()
         .ref(`groups/${groupName}/pins`)
         .on("value", (snapshot) => {
-          console.log(snapshot.val());
-          setGroupPins(snapshot.val());
+          const result = snapshot.val() ?? {};
+          setGroupPins(result);
         });
     } catch (e) {
       console.log("Error get grp pins:", e);
