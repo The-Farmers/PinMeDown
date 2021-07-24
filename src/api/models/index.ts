@@ -6,7 +6,7 @@ import {
   TITLE,
   USER_ID,
   LAT,
-  LONG,
+  LNG,
   CREATOR,
 } from "../constants";
 
@@ -24,7 +24,7 @@ export type Pin = {
   [TITLE]: string;
   [DESCRIPTION]: string;
   [LAT]: number;
-  [LONG]: number;
+  [LNG]: number;
   [GROUP_NAME]: string;
   [CREATOR]: User;
 };
