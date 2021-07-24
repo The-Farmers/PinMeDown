@@ -9,6 +9,6 @@ export const Y_COORD = "y";
 export const GROUP = "group";
 export const USER_ID = "userId";
 export const LAT = "lat";
-export const LONG = "long";
+export const LNG = "lng";
 export const TITLE = "title";
 export const USERNAME = "username";

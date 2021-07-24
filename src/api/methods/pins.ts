@@ -12,7 +12,7 @@ export function createPin(pin: Pin) {
       .set({
         description: pin.description,
         lat: pin.lat,
-        long: pin.long,
+        lng: pin.lng,
         creator: pin.creator,
       });
   } catch (e) {
