@@ -4,9 +4,10 @@ import "semantic-ui-css/semantic.min.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import styles from "./app.module.scss";
 import { AuthContext } from "./context/AuthContext";
-import LandingPage from "./components/signup/LandingPage";
-import HomeScreen from "./screens/HomeScreen";
+import AppLayoutContainer from "./components/app-layout-container";
+import SidePanel from "./components/side-panel";
 import OnBoardingPage from "./components/signup/OnBoardingPage";
+import LandingPage from "./components/signup/LandingPage";
 
 toast.configure({
   position: "bottom-center",
@@ -20,17 +21,21 @@ function App() {
   const { user } = useContext(AuthContext);
 
   const renderScreen = () => {
-    if (user === null) {
-      return <LandingPage />;
-    }
+    // if (user === null) {
+    //   return <LandingPage />;
+    // }
 
-    if (!user.name) {
-      return <OnBoardingPage />;
-    }
+    // if (user.name === null || user.name === "") {
+    //   return <OnBoardingPage />;
+    // }
 
-    return <HomeScreen />;
+    return <SidePanel />;
   };
-  return <div className={styles.app}>{renderScreen()}</div>;
+  return (
+    <div className={styles.app}>
+      <AppLayoutContainer>{renderScreen()}</AppLayoutContainer>
+    </div>
+  );
 }
 
 export default App;
